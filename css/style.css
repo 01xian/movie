@@ -1,0 +1,117 @@
+html,body{
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+.gridViewContainer {
+    text-align: center; 
+    margin: 12%;
+
+}
+.gridViewItem {
+	display: inline-block;
+    min-width: 150px;
+    max-width: 200px;
+    /* margin-top: 4%;
+    margin-right: 2%;
+    margin-left: 2%; */
+    margin:1%;
+    text-align: center;
+}
+.gridViewItem img {
+    width:100%;
+}
+.banner {
+    height: 50%;
+    margin-bottom: 3%;
+}
+.banner img {
+    width: 100%;
+    height:100%;
+}
+.searchContainer {
+    position: relative;
+    top:-60%;
+    /* left:10%; */
+    width: 80%;
+    height:8%;
+}
+.searchInput {
+    /* width:75%;
+    height:45%; */
+    background-color: #ffffff;
+    border-radius:20px;
+    opacity:0.8;
+}
+.searchBut {
+    /* height:50%;
+    width:15%; */
+    border-radius:20px;
+    background-color:gainsboro;
+    opacity:0.8;
+}
+.movieContainer {
+    width: 80%;
+}
+.moviePoster {
+    /* display:inline-block;
+    width:25%;
+    margin-left:10%; */
+}
+.moviePoster img{
+    width:100%;
+}
+.movieContent {
+    /* display:inline-block;
+    position:absolute;
+    top: 0%;
+    margin-left:3%;
+    margin-right:10%; */
+}
+.cast{
+    width: 80%;
+}
+.castDetail{
+    display:inline-block;
+    max-width:180px;
+    min-width:150px;
+    text-align:center;
+
+}
+.castDetail img{
+    width:100%;
+}
+.gridViewContainer h3 {
+    text-align: left;
+    margin-left: 8%;
+}
+
+.registerContainer {
+background-image: url("../img/register.jpg");
+background-size: cover;
+background-position: center;
+margin: auto;
+width: 75%;
+height:75%;
+
+}
+.message {
+    width: 90%;
+    margin: auto;
+}
+
+.review {
+   width:81%;
+   margin: auto;
+}
+
+.index{
+    width:80%;
+    height:70%;
+
+}
+.index img {
+    width: 100%;
+    height:100%;
+}
+
