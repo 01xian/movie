@@ -21,9 +21,9 @@ class MoviepageController
                  $html .= implode('、', $movieGenre );
 
                 if (addToFavourtite($_GET['id'])) {
-                    $html .= '<h2><button type="button" id="remove_favorite" class="btn  mt-3 btn-block btn-outline-secondary " ><span class="far fa-window-close fa-lg"></span> 從我的清單中刪除</button></h2>';
+                    $html .= '<h2><button type="button" id="removeFavorite" class="btn  mt-3 btn-block btn-outline-secondary " ><span class="far fa-window-close fa-lg"></span> 從我的清單中刪除</button></h2>';
                 } else {
-                    $html .='<h2><button type="button" id="add_favorite" class="btn  mt-3 btn-block btn-outline-danger " ><span class="far fa-kiss-wink-heart fa-lg"></span>加入我的清單</button></h2>';
+                    $html .='<h2><button type="button" id="addFavorite" class="btn  mt-3 btn-block btn-outline-danger " ><span class="far fa-kiss-wink-heart fa-lg"></span>加入我的清單</button></h2>';
                 }
                 $html .=
                     '<input type="hidden"  id="poster_path" value="'.$movie["poster_path"].'">
@@ -36,9 +36,13 @@ class MoviepageController
                     <div class="castContainer row">';
                 foreach ($movieCast["cast"] as $key => $cast) {
                     if ($key > 7) continue;
-                    $html .= '<div class="castDetail m-auto ">
-                            <img src="https://www.themoviedb.org/t/p/w276_and_h350_face/'.$cast["profile_path"].'" alt="">
-                            <span>'.$cast["name"].'</span> </br>
+                    $html .= '<div class="castDetail m-auto ">';
+                    if ($cast["profile_path"]) {
+                        $html .= '<img src="https://www.themoviedb.org/t/p/w276_and_h350_face/'.$cast["profile_path"].'" alt="">';
+                    } else {
+                        $html .= '<img src="img/noimage.png" alt="">';
+                    }
+                    $html .= '<span>'.$cast["name"].'</span> </br>
                             <span>'.$cast["character"].'</span>
                         </div>'
                         ;

@@ -3,12 +3,12 @@ include("../../pub.php");
 
 class MovieController 
 {
-    public function top20Gridview($title, $item)
+    public function top20Gridview($title, $item, $query='')
     {
         global $dbh;
         $html = '<h2 class="mb-3" >'.$title.'</h2>';
         $movieTop20Id = []; 
-        $a = curl('http://api.themoviedb.org/3/movie/'.$item.'?api_key=408db82bcb709e53e2a0c72c20c6108b&language=zh-TW');
+        $a = curl('http://api.themoviedb.org/3/movie/'.$item.'?api_key=408db82bcb709e53e2a0c72c20c6108b&language=zh-TW&region=TW'.$query);
         foreach ($a["results"] as $key => $movie) {
             $html .= '<div class="gridViewItem" >
                       <a href="moviePage.php?id='.$movie['id'].'">

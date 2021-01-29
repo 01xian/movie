@@ -8,6 +8,10 @@
       <div class="navbar-nav ">
         <a class="nav-link active" aria-current="page" href="movie.php">熱門Top20</a>
         <a class="nav-link" href="topRatedMovie.php">最高評分</a>
+        <a class="nav-link" href="upcomingMovie.php">即將上映</a>
+        <a class="nav-link" href="nowPlayingMovie.php">上映中</a>
+
+
         <?php
         if (isset($_SESSION['isLogin']) && $_SESSION['isLogin'] == 'yes') {
         ?>

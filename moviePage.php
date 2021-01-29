@@ -1,41 +1,23 @@
 
 <?php
-include("pub.php");
-include("Classes/Controllers/MoviepageController.php");
-include("Classes/Models/ReviewModel.php");
+include("header.php");
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script src="js/common.js"></script>
-    <script src="js/jquery.js"></script>
-    <script src="https://kit.fontawesome.com/3deb95cfd6.js" crossorigin="anonymous"></script>
-
-    <title>movie</title>
-
-</head>
-<body>
 <script>
 $(document).ready(function () {
     $("#reviewBtn").click(function(){
         reviewBtn($("#review"), $("#member_id"), $("#name"), $("#tmdb_id"));       
     });
 
-    $('#add_favorite').click(function(){
+    $('#addFavorite').click(function(){
         addFavorite($("#tmdb_id"), $("#poster_path"), $("#overview"), $("#title"));
     });
 
-    $('#remove_favorite').click(function(){
+    $('#removeFavorite').click(function(){
         revomeFavorite($("#tmdb_id"));
     });
     
 });
 </script>
-<?php include("nav.php")?>
 <?php
 $moviePage = new MoviepageController();
 $html = $moviePage->movieIntr($_GET['id']);
@@ -70,8 +52,6 @@ echo ($html);
 <?php
 $html = $moviePage->showReview();
 echo ($html);
+include("footer.php");
 ?>
- 
-</body>
-</html>
 

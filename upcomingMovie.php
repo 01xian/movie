@@ -28,7 +28,7 @@ if ($_GET['valueToSearch']) {
 
 } else {
     $movieController = new MovieController();
-    $html = $movieController->top20Gridview('最高評分電影', 'top_rated');
+    $html = $movieController->top20Gridview('即將上映', 'upcoming');
     echo ($html);
 }
 ?>

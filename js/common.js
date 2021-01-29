@@ -29,7 +29,7 @@ function checkUserEmail (normalCallback, noticeCallback, emailId, emailNotice, b
     $("#email").keyup(function(){
         $.ajax({
             type: "POST",
-            url: "ajax/check_user.php",
+            url: "ajax/checkUser.php",
             data:{
                 'email' : emailId.val()
             },
@@ -82,7 +82,7 @@ function registerSubmit(submit, password, password1, email, name)
             } else {
                 $.ajax({
                     type: "POST",
-                    url: "ajax/add_user.php",
+                    url: "ajax/addUser.php",
                     data:{
                         'email' : email.val(),
                         'name' : name.val(),
@@ -143,7 +143,7 @@ function reviewBtn(review, memberId, name, tmdbId)
     if(review.val() != '') {
         $.ajax({
             type: "POST",
-            url: "ajax/add_review.php",
+            url: "ajax/addReview.php",
             data:{
                 'member_id' : memberId.val(),
                 'name' : name.val(),
@@ -172,7 +172,7 @@ function addFavorite(tmdbId, posterPath, overview, title)
 {
     $.ajax({
         type:"POST",
-        url:"ajax/add_favorite.php",
+        url:"ajax/addFavorite.php",
         data:{
             'tmdb_id':tmdbId.val(),
             'poster_path':posterPath.val(),
@@ -196,7 +196,7 @@ function revomeFavorite(tmdbId)
 {
     $.ajax({
         type:"POST",
-        url:"ajax/remove_favorite.php",
+        url:"ajax/removeFavorite.php",
         data:{
             'tmdb_id':tmdbId.val(),
         },
