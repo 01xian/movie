@@ -9,7 +9,7 @@ include("pub.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script src="js/script.js"></script>
+    <script src="js/common.js"></script>
     <script src="js/jquery.js"></script>
 
     <title>movie</title>
@@ -17,35 +17,11 @@ include("pub.php");
 <body>
 <script type="text/javascript">
     $(document).ready(function() {
-        $("#submit").click(function(){
-            if ($('#email').val() != '' && $('#password').val() != '') {
-                $.ajax({
-                    type:"POST",
-                    dataType: "json",
-                    url:"ajax/login.php",
-                    data:{
-                        'em' :$('#email').val(),
-                        'pw' :$('#password').val()
-                    },
-                    success: function(response){
-                        console.log(response);
-                        if (response.result) {
-                            $(location).attr('href', 'movie.php');
-                        } else {
-                            alert(response.msg);
-                        }
-                    },
-                    error: function(thrownError){
-                        console.log(thrownError);
-                    }
-                });
-            } else {
-                alert ('請填寫email和密碼！');
-            }
+        $("#submit").click(function(){  
+            loginSubmit($("#submit"), $('#email').val(), $('#password').val());
         });
-       
-
     });  
+
 </script>
 <?php include("nav.php")?>
 

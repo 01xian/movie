@@ -4,7 +4,7 @@ $dbh = new PDO('mysql:host=localhost;dbname=movie;charset=utf8', 'root', 'root')
 
 session_start();
 
-function curl($url) {
+function curl($url){
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -16,7 +16,7 @@ function curl($url) {
     return $result;
 }
 
-function check_login($email , $password) {
+function checkLogin($email , $password){
     
     global $dbh;
     $sth = $dbh->prepare("SELECT * FROM member WHERE email = ? AND password = ? ");
@@ -28,14 +28,14 @@ function check_login($email , $password) {
     return ($result);
 }
 
-function login($result) {
-    $_SESSION['is_login'] = 'yes';
+function login($result){
+    $_SESSION['isLogin'] = 'yes';
     $_SESSION['member_data'] = json_encode($result);
 }
 
-function add_to_favourtite($tmdb_id) {
+function addToFavourtite($tmdb_id){
 
-    if (isset($_SESSION['is_login']) && $_SESSION['is_login'] == 'yes') {
+    if (isset($_SESSION['isLogin']) && $_SESSION['isLogin'] == 'yes') {
 
         $member_data = json_decode($_SESSION['member_data']);
         $member_id = $member_data->id;

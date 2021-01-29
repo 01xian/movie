@@ -18,7 +18,7 @@ if (isset($_POST['email']) && $_POST['email'] != '' &&
 
         if ($sth->execute($field)) {
 
-            $result = check_login($_POST['email'], $_POST['pw']);
+            $result = checkLogin($_POST['email'], $_POST['pw']);
             login($result);
             echo (json_encode(['result' => true]));
         } else {

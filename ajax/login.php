@@ -1,7 +1,7 @@
 <?php
 include("../pub.php");
 
-$result = check_login($_POST['em'], $_POST['pw']);
+$result = checkLogin($_POST['em'], $_POST['pw']);
 
 if ($result){
 

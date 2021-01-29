@@ -2,16 +2,16 @@
 
 class FavoriteController 
 {
-    public function get_favorite_movie () 
+    public function getFavoriteMovie() 
     {
-        if ($this->is_login()) {
+        if ($this->isLogin()) {
 
             $member_data = json_decode($_SESSION['member_data']);
             $member_id = $member_data->id;         
 
             $favoriteMovieModel = new FavoriteMovieModel();
-            $result = $favoriteMovieModel->get_favorite_movie($member_id);
-            $html = $this->get_favorite_html($result);
+            $result = $favoriteMovieModel->getFavoriteMovie($member_id);
+            $html = $this->getFavoriteHtml($result);
             return ($html);
 
         } else {
@@ -19,16 +19,16 @@ class FavoriteController
         }
     }
 
-    public function is_login() 
+    public function isLogin() 
     {
-        if (isset($_SESSION['is_login']) && $_SESSION['is_login'] == 'yes'){
+        if (isset($_SESSION['isLogin']) && $_SESSION['isLogin'] == 'yes') {
             return true;
         } else {
             return false;
         }
     }
 
-    public function get_favorite_html($result)
+    public function getFavoriteHtml($result)
     {
         $result = json_decode($result, true);
         foreach ($result as $key=>$value) {
@@ -38,7 +38,7 @@ class FavoriteController
             '.$value['title'].' 
         </div>';
           }
-          return $html;
+        return $html;
     }
 }
 ?>

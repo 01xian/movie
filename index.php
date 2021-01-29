@@ -1,6 +1,6 @@
 <?php
 include("pub.php");
-include("Classes/Controllers/IndexController.php");
+include("Classes/Controllers/SearchController.php");
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +27,14 @@ $(document).ready(function() {
 });   
 </script>
 <?php include("nav.php")?>
-<div class="<?php if ($_GET['valueToSearch']){echo('banner');} else {echo('index mt-5 m-auto');} ?>" >
+<div class="
+<?php 
+if ($_GET['valueToSearch']) {
+    echo('banner');
+    } else {
+        echo('index mt-5 m-auto');
+    } 
+?>" >
     <img src="img/banner.jpg" alt="" >   
     <div class="searchContainer  m-auto">
         <form>
@@ -41,8 +48,8 @@ $(document).ready(function() {
 <?php
     if ($_GET['valueToSearch']) {
         
-        $indexController = new IndexController();
-        $indexSearchHtml = $indexController->indexSearch($_GET['valueToSearch']);
+        $indexController = new SearchController();
+        $indexSearchHtml = $indexController->search($_GET['valueToSearch']);
         echo($indexSearchHtml);
 ?>
 <div class="showInfo"></div>

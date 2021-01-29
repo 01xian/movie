@@ -1,5 +1,7 @@
 <?php
 include("pub.php");
+include("Classes/Controllers/SearchController.php");
+include("Classes/Controllers/ＭovieController.php");
 ?>
 
 <!DOCTYPE html>
@@ -16,6 +18,8 @@ include("pub.php");
 
 </head>
 <body>
+<?php include("nav.php")?>
+
 <script type="text/javascript">
 $(document).ready(function() {
     var i = 0;
@@ -26,7 +30,6 @@ $(document).ready(function() {
     });
 });   
 </script>
-<?php include("nav.php")?>
     <div class = "banner">
         <img src="img/banner.jpg" alt="">   
         <div class="searchContainer m-auto">
@@ -40,18 +43,9 @@ $(document).ready(function() {
 <div class = " row  gridViewContainer justify-content-around mt-1 ">
 <?php
 if ($_GET['valueToSearch']) {
-    echo ('<h3>搜尋"'.$_GET['valueToSearch'].'"結果</h3>');
-    $query = urlencode($_GET['valueToSearch']);
-    $a = curl('https://api.themoviedb.org/3/search/movie?api_key=408db82bcb709e53e2a0c72c20c6108b&language=zh-TW&query='.$query.'&page=1&include_adult=false');
-    foreach ($a["results"] as $movie) {
-        if ($movie["poster_path"]) {
-            echo '<div class="gridViewItem" >
-            <a href="moviePage.php?id='.$movie['id'].'">
-            <img src="https://www.themoviedb.org/t/p/w220_and_h330_face/' . $movie["poster_path"] .'"alt=""> </a> </br>'.$movie['title'].
-            '</div>';
-        }
-      
-    }
+        $indexController = new SearchController();
+        $indexSearchHtml = $indexController->search($_GET['valueToSearch']);
+        echo($indexSearchHtml);
 ?>
     <div class="showInfo"></div>
     <div class="d-grid pb-3 col-6 mx-auto">
@@ -59,61 +53,11 @@ if ($_GET['valueToSearch']) {
     <div class="query" style="display:none"><?php echo ($query); ?></div>
     </div>
 
-
 <?php
 } else {
-    echo ('<h2 class="mb-3" >熱門電影 Top20</h2>');
-    $movieTop20Id = []; 
-    $a = curl('http://api.themoviedb.org/3/movie/popular?api_key=408db82bcb709e53e2a0c72c20c6108b&language=zh-TW');
-    foreach ($a["results"] as $key => $movie) {
-        echo '<div class="gridViewItem" >
-                  <a href="moviePage.php?id='.$movie['id'].'">
-                  <img src="https://www.themoviedb.org/t/p/w220_and_h330_face/' . $movie["poster_path"] .'"alt=""> </a> 
-                  TOP  '.($key+1).'</br>'.$movie['title'].' 
-              </div>';
-              $movieTop20Id[] = $movie['id'];             
-    }
-    $ids = implode(',', $movieTop20Id);
-    $sth = $dbh->prepare('SELECT * FROM movie WHERE tmdb_id IN ('.$ids.') ');
-    $sth->execute();
-    $result = $sth->fetchAll();
-    $movieindb = [];  
-    foreach ($result as $value) {
-        $movieindb[] = $value['tmdb_id'];
-    }
-
-    $insertmovieid = [];
-    foreach ($movieTop20Id as $id) {
-        if (!in_array($id, $movieindb)) {
-            $insertmovieid[] = $id;
-        }
-    }
-  
-    foreach($insertmovieid as $id) {
-        $movie = curl("http://api.themoviedb.org/3/movie/".$id."?api_key=408db82bcb709e53e2a0c72c20c6108b&language=zh-TW");
-        $movieCast = curl("https://api.themoviedb.org/3/movie/".$id."/credits?api_key=408db82bcb709e53e2a0c72c20c6108b&language=zh-TW");
-        $cast = [];
-        foreach ($movieCast["cast"] as $key => $value) {
-            if ($key > 7) continue;
-            $cast[$value["name"]] = $value["character"];
-        } 
-
-        $sth = $dbh->prepare('INSERT movie (tmdb_id, name, poster_path, genre, release_date, overview, cast_poster_path, created_at, updated_at) VALUES (:tmdb_id, :name, :poster_path, :genre, :release_date, :overview, :cast_poster_path, :created_at, :updated_at)');
-        $field = [
-            ':tmdb_id' => $id, 
-            ':name' => $movie["title"], 
-            ':poster_path' => $movie["poster_path"], 
-            ':genre' => json_encode($movie["genres"]), 
-            ':release_date' => $movie["release_date"], 
-            ':overview' => $movie["overview"], 
-            ':cast_poster_path' => json_encode($cast), 
-            ':created_at' => $datetime, 
-            ':updated_at' => $datetime
-        ];
-       
-        $sth->execute( $field );
-
-    }
+    $movieController = new MovieController();
+    $html = $movieController->top20Gridview('熱門電影 Top20', 'popular');
+    echo ($html);
 }
 ?>
 </div>

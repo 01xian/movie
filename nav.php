@@ -9,7 +9,7 @@
         <a class="nav-link active" aria-current="page" href="movie.php">熱門Top20</a>
         <a class="nav-link" href="topRatedMovie.php">最高評分</a>
         <?php
-        if (isset($_SESSION['is_login']) && $_SESSION['is_login'] == 'yes') {
+        if (isset($_SESSION['isLogin']) && $_SESSION['isLogin'] == 'yes') {
         ?>
             <a class="nav-link" href="favorite.php">我的清單</a>
             <a class="nav-link" href="logout.php">登出</a>

@@ -1,6 +1,5 @@
 <?php
 include("../pub.php");
-
 $sth = $dbh->prepare('INSERT review (tmdb_id, member_id, name, review) 
                       VALUES (:tmdb_id, :member_id, :name, :review)');
 $field = [

@@ -27,7 +27,7 @@ include("Classes/Models/FavoriteMovieModel.php");
 <div class="row gridViewContainer justify-content-around mt-1">
 <?php
 $favoriteController = new FavoriteController();
-$favoriteMovieHtml = $favoriteController->get_favorite_movie();
+$favoriteMovieHtml = $favoriteController->getFavoriteMovie();
 echo ($favoriteMovieHtml);
 ?>
 </div>

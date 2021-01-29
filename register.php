@@ -9,7 +9,7 @@ include("pub.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script src="js/script.js"></script>
+    <script src="js/common.js"></script>
     <script src="js/jquery.js"></script>
 
     <title>movie</title>
@@ -17,83 +17,9 @@ include("pub.php");
 <body>
 <script type="text/javascript">
     $(document).ready(function() {
-        $("#email").keyup(function(){
-            $.ajax({
-                type: "POST",
-                url: "ajax/check_user.php",
-                data:{
-                    'email' : $(this).val()
-                },
-                datatype:'json',
-                success: function (response) {
-                    var response = JSON.parse(response);
-                    console.log(response.result);
-
-                    if ($("#email").val() != '') {
-
-                        if (response.result == false) {
-
-                            $("#email").addClass("border-danger");
-                            $("#emailNotice").html(response.reason);
-                            $('#submit').addClass('disabled');
-
-                        } else {
-
-                            $("#email").removeClass("border-danger");
-                            $("#emailNotice").html('');
-                            $('#submit').removeClass('disabled');
-                        }
-                    } else {
-                        $("#email").removeClass("border-danger");
-                        $("#emailNotice").html('');
-                        $('#submit').removeClass('disabled');
-
-                    }
-                },
-                error: function (thrownError) {
-                console.log(thrownError);
-                }
-
-            });
-        });
-
-        $("#submit").click(function(){
-            if ($("#password").val() != "" && $("#password1").val() != "" && $("#email").val() != ""  && $("#name").val() != "") {
-
-                if ($("#password").val() != $("#password1").val()) {
-                    alert('兩次密碼不一樣！')
-                
-                } else {
-                    $.ajax({
-                        type: "POST",
-                        url: "ajax/add_user.php",
-                        data:{
-                            'email' : $("#email").val(),
-                            'name' : $("#name").val(),
-                            'pw' : $("#password").val()
-                        },
-                        datatype:'json',
-                        success: function (response) {
-                            var response = JSON.parse(response);
-                            if (response.result) {
-
-                                $(location).attr('href', 'movie.php');
-
-                            } else {
-                                alert(response.msg);
-                            }
-                        },
-                        error: function (thrownError) {
-                        console.log(thrownError);
-                        }
-                    });
-                }
-
-            } else {
-                alert('資料不齊全哦！');
-            }
-        });
-
+        
+        checkUserEmail(emNormalStyle, emWrongStyle, $("#email"), $("#emailNotice"), $('#submit'));
+        registerSubmit($("#submit"), $("#password"), $("#password1"), $("#email"), $("#name") );
     });  
 </script>
 <?php include("nav.php")?>
