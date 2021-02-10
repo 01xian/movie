@@ -1,6 +1,5 @@
 <?php
-include("pub.php");
-include("header.php");
+include_once ("header.php");
 ?>
 <script type="text/javascript">
     $(document).ready(function() {

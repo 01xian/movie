@@ -23,7 +23,7 @@ $(document).ready(function() {
 
 <div class = " row  gridViewContainer justify-content-around mt-1 ">
 <?php
-if ($_GET['valueToSearch']) {
+if (isset($_GET['valueToSearch']) && $_GET['valueToSearch'] != '') {
     include("search.php");
 
 } else {

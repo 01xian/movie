@@ -30,8 +30,14 @@ echo ($html);
         <h5 class="card-title">
         <?php
         $writer = $moviePage->writer($_GET['id']);
-        $memberData = json_decode($_SESSION['member_data']);
-        echo ($writer); 
+        if ($writer['result']) {
+            echo ("作者：".$writer['data']['name']); 
+
+        } else {
+            echo ($writer['msg']);
+
+        }
+        //$memberData = json_decode($_SESSION['member_data']);
         ?>
         </h5>
         <p class="card-text">
@@ -39,8 +45,8 @@ echo ($html);
             <div class="form-group">
                 <textarea class="form-control border-secondary " id="review" rows="3"></textarea>
             </div>
-            <input type="hidden"  id="member_id" value="<?php echo $memberData->id?>">
-            <input type="hidden"  id="name" value="<?php echo $memberData->name?>">
+            <input type="hidden"  id="member_id" value="<?php echo ($writer['data']['id'] ?? '');?>">
+            <input type="hidden"  id="name" value="<?php echo $writer['data']['name'] ?? '' ;?>">
             <input type="hidden"  id="tmdb_id" value="<?php echo $_GET['id']?>">
             <button type="button" class="btn btn-secondary mt-3" id="reviewBtn">送出</button>
         </form>

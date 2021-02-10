@@ -30,9 +30,9 @@ if ($_GET['valueToSearch']) {
 
 <div class = "row gridViewContainer justify-content-around mt-1">
 <?php
-    if ($_GET['valueToSearch']) {
-        include("search.php");
-    }
+if (isset($_GET['valueToSearch']) && $_GET['valueToSearch'] != '') {
+    include("search.php");
+}
 ?>
 </div>
 <?php include("footer.php");?>

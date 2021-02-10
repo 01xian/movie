@@ -1,5 +1,5 @@
 <?php
-include("../../pub.php");
+include_once dirname(__DIR__, 2).("/pub.php");
 
 class SearchController 
 {

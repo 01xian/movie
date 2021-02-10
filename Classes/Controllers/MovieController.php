@@ -1,14 +1,16 @@
 <?php
-include("../../pub.php");
+
+include_once dirname(__DIR__, 2).("/pub.php");
+include_once dirname(__DIR__).("/Models/MovieModel.php");
 
 class MovieController 
 {
-    public function top20Gridview($title, $item, $query='')
+    public function top20Gridview($title, $item)
     {
         global $dbh;
         $html = '<h2 class="mb-3" >'.$title.'</h2>';
         $movieTop20Id = []; 
-        $a = curl('http://api.themoviedb.org/3/movie/'.$item.'?api_key=408db82bcb709e53e2a0c72c20c6108b&language=zh-TW&region=TW'.$query);
+        $a = curl('http://api.themoviedb.org/3/movie/'.$item.'?api_key=408db82bcb709e53e2a0c72c20c6108b&language=zh-TW&region=TW');
         foreach ($a["results"] as $key => $movie) {
             $html .= '<div class="gridViewItem" >
                       <a href="moviePage.php?id='.$movie['id'].'">
@@ -18,9 +20,8 @@ class MovieController
                   $movieTop20Id[] = $movie['id'];             
         }
         $ids = implode(',', $movieTop20Id);
-        $sth = $dbh->prepare('SELECT * FROM movie WHERE tmdb_id IN ('.$ids.') ');
-        $sth->execute();
-        $result = $sth->fetchAll();
+        $movieModel = new MovieModel();
+        $result = $movieModel->movie($ids);
         $movieindb = [];  
         foreach ($result as $value) {
             $movieindb[] = $value['tmdb_id'];
@@ -41,25 +42,10 @@ class MovieController
                 if ($key > 7) continue;
                 $cast[$value["name"]] = $value["character"];
             } 
-    
-            $sth = $dbh->prepare('INSERT movie (tmdb_id, name, poster_path, genre, release_date, overview, cast_poster_path, created_at, updated_at) VALUES (:tmdb_id, :name, :poster_path, :genre, :release_date, :overview, :cast_poster_path, :created_at, :updated_at)');
-            $field = [
-                ':tmdb_id' => $id, 
-                ':name' => $movie["title"], 
-                ':poster_path' => $movie["poster_path"], 
-                ':genre' => json_encode($movie["genres"]), 
-                ':release_date' => $movie["release_date"], 
-                ':overview' => $movie["overview"], 
-                ':cast_poster_path' => json_encode($cast), 
-                ':created_at' => $datetime, 
-                ':updated_at' => $datetime
-            ];
-           
-            $sth->execute( $field );
-    
+            $movieModel->insertMovie($id, $movie["title"], $movie["poster_path"], $movie["genres"], $movie["release_date"], $movie["overview"], $cast);
         }
         return ($html);
     }
 
 }
-?>
+

@@ -1,7 +1,7 @@
 <?php
 include("pub.php");
 include("Classes/Controllers/SearchController.php");
-include("Classes/Controllers/ＭovieController.php");
+include("Classes/Controllers/MovieController.php");
 include("Classes/Controllers/FavoriteController.php");
 include("Classes/Models/FavoriteMovieModel.php");
 include("Classes/Controllers/MoviepageController.php");

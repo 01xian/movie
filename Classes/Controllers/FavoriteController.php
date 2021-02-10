@@ -30,6 +30,7 @@ class FavoriteController
 
     public function getFavoriteHtml($result)
     {
+        $html = '';
         $result = json_decode($result, true);
         foreach ($result as $key=>$value) {
             $html .= '<div class="gridViewItem mt-3 " >
