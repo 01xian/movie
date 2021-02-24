@@ -1,24 +1,20 @@
 <?php
-include("header.php");
+include_once("header.php");
+include_once("includeFiles.php");
 ?>
 <script type="text/javascript">
 $(document).ready(function() {
     var i = 0;
+    var query = '<?php echo empty($_GET['valueToSearch'])?'':json_encode($_GET['valueToSearch']); ?>';
+    checkQuery(query);
+    showContent(query);
     $('#getMoreInfo').click(function(){
         i++;
-        var query = <?php echo json_encode($_GET['valueToSearch']) ?>;
         getMoreInfo(handleData, query, i, $('.showInfo'));
     });
 });   
 </script>
-<div class="
-<?php 
-if ($_GET['valueToSearch']) {
-    echo('banner');
-    } else {
-        echo('index mt-5 m-auto');
-    } 
-?>" >
+<div id="banner" class="index mt-5 m-auto" >
     <img src="img/banner.jpg" alt="" >   
     <div class="searchContainer  m-auto">
         <form>
@@ -29,10 +25,16 @@ if ($_GET['valueToSearch']) {
 </div>
 
 <div class = "row gridViewContainer justify-content-around mt-1">
-<?php
-if (isset($_GET['valueToSearch']) && $_GET['valueToSearch'] != '') {
-    include("search.php");
-}
-?>
+
+<div id="searchOrContent"></div>
+
+<div class="searchResult"></div>
+<div class="showInfo"></div>
+
+<div class="d-grid pb-3 col-6 mx-auto">
+<button class="btn btn-primary getMoreInfo btn1" style="display:none;" id="getMoreInfo" type="button">載入更多</button>
+</div>
+
+</div>
 </div>
 <?php include("footer.php");?>

@@ -1,3 +1,9 @@
+<?php
+include_once("includeFiles.php");
+?>
+<script>
+navCheckLogin();
+</script>
 <nav class="navbar navbar-expand-lg  navbar navbar-dark  " style="background-color: #d81b0163;">
   <div class="container-fluid ">
     <a class="navbar-brand" href="index.php">Movie</a>
@@ -10,20 +16,6 @@
         <a class="nav-link" href="topRatedMovie.php">最高評分</a>
         <a class="nav-link" href="upcomingMovie.php">即將上映</a>
         <a class="nav-link" href="nowPlayingMovie.php">上映中</a>
-
-
-        <?php
-        if (isset($_SESSION['isLogin']) && $_SESSION['isLogin'] == 'yes') {
-        ?>
-            <a class="nav-link" href="favorite.php">我的清單</a>
-            <a class="nav-link" href="logout.php">登出</a>
-        <?php
-        } else {
-        ?>
-            <a class="nav-link" href="login.php">登入</a>
-        <?php
-        }
-        ?>
       </div>
     </div>
   </div>

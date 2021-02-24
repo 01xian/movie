@@ -17,5 +17,4 @@ define('IMAGE_URL', 'https://www.themoviedb.org/t/p/');
 define('IMAGE_SIZE', [
     'W220H330' => 'w220_and_h330_face',
     'W276H350'=>'w276_and_h350_face',
-    'W1280'=>'W1280'
 ]);

@@ -1,5 +1,6 @@
 <?php
-include_once ("header.php");
+include_once("header.php");
+include_once("includeFiles.php");
 ?>
 <script type="text/javascript">
     $(document).ready(function() {

@@ -1,20 +1,19 @@
 
 
 <?php
-include("../pub.php");
-
+include_once dirname(__DIR__).("/includeFiles.php");
 if (isset($_GET['page']) && $_GET['page'] != '' &&
     isset($_GET['query']) && $_GET['query'] != '') {
     
     $page = $_GET['page']+1;
     $html = '';
     $query = urlencode($_GET['query']);
-    $a = curl('https://api.themoviedb.org/3/search/movie?api_key=408db82bcb709e53e2a0c72c20c6108b&language=zh-TW&query='.$query.'&page='.$page.'&include_adult=false');
+    $a = curl('https://api.themoviedb.org/3/'.URL_KIND['SEARCH'].'?api_key='.API_KEY.'&language='.LANGUAGE.'&query='.$query.'&page='.$page.'&include_adult=false');
     foreach ($a["results"] as $movie) {
         if ($movie["poster_path"]) {
             $html .= '<div class="gridViewItem" >
             <a href="moviePage.php?id='.$movie['id'].'">
-                <img src="https://www.themoviedb.org/t/p/w220_and_h330_face/' . $movie["poster_path"] .'"alt=""> </a> </br>'.$movie['title'].'
+                <img src="'.IMAGE_URL.IMAGE_SIZE['W220H330'].'/' . $movie["poster_path"] .'"alt=""> </a> </br>'.$movie['title'].'
 
             </div>';
         }

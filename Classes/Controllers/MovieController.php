@@ -10,11 +10,11 @@ class MovieController
         global $dbh;
         $html = '<h2 class="mb-3" >'.$title.'</h2>';
         $movieTop20Id = []; 
-        $a = curl('http://api.themoviedb.org/3/movie/'.$item.'?api_key=408db82bcb709e53e2a0c72c20c6108b&language=zh-TW&region=TW');
+        $a = curl(MOVIE_API_URL.URL_KIND['MOVIE'].$item.'?api_key='.API_KEY.'&language='.LANGUAGE.'&region='.REGION);
         foreach ($a["results"] as $key => $movie) {
             $html .= '<div class="gridViewItem" >
                       <a href="moviePage.php?id='.$movie['id'].'">
-                      <img src="https://www.themoviedb.org/t/p/w220_and_h330_face/' . $movie["poster_path"] .'"alt=""> </a> 
+                      <img src="'.IMAGE_URL.IMAGE_SIZE['W220H330'].'/' . $movie["poster_path"] .'"alt=""> </a> 
                       TOP  '.($key+1).'</br>'.$movie['title'].' 
                   </div>';
                   $movieTop20Id[] = $movie['id'];             
@@ -35,8 +35,8 @@ class MovieController
         }
       
         foreach($insertmovieid as $id) {
-            $movie = curl("http://api.themoviedb.org/3/movie/".$id."?api_key=408db82bcb709e53e2a0c72c20c6108b&language=zh-TW");
-            $movieCast = curl("https://api.themoviedb.org/3/movie/".$id."/credits?api_key=408db82bcb709e53e2a0c72c20c6108b&language=zh-TW");
+            $movie = curl(MOVIE_API_URL.URL_KIND['MOVIE'].$id."?api_key=".API_KEY."&language=".LANGUAGE);
+            $movieCast = curl("https://api.themoviedb.org/3/".MOVIE.$id."/".URL_KIND['CAST']."?api_key=".API_KEY."&language=".LANGUAGE);
             $cast = [];
             foreach ($movieCast["cast"] as $key => $value) {
                 if ($key > 7) continue;

@@ -1,0 +1,10 @@
+<?php
+include_once("pub.php");
+include_once("Classes/Controllers/SearchController.php");
+include_once("Classes/Controllers/MovieController.php");
+include_once("Classes/Controllers/FavoriteController.php");
+include_once("Classes/Models/FavoriteMovieModel.php");
+include_once("Classes/Controllers/MoviepageController.php");
+include_once("Classes/Models/ReviewModel.php");
+include_once("config/config.php")
+?>

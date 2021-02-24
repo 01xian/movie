@@ -35,7 +35,7 @@ class FavoriteController
         foreach ($result as $key=>$value) {
             $html .= '<div class="gridViewItem mt-3 " >
             <a href="moviePage.php?id='.$value['tmdb_id'].'">
-            <img src="https://www.themoviedb.org/t/p/w220_and_h330_face/' . $value["poster_path"] .'"alt=""> </a> 
+            <img src="'.IMAGE_URL.IMAGE_SIZE['W220H330'].'/' . $value["poster_path"] .'"alt=""> </a> 
             '.$value['title'].' 
         </div>';
           }

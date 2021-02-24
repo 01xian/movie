@@ -4,9 +4,9 @@ include_once dirname(__DIR__, 2).("/pub.php");
 
 class ReviewModel extends DBConnect
 {
-    public function showReview()
+    public function showReview($id)
     {
-        $sth = $this->dbConnect->prepare("SELECT * FROM review WHERE tmdb_id = '{$_GET['id']}'");
+        $sth = $this->dbConnect->prepare("SELECT * FROM review WHERE tmdb_id = '{$id}'");
         $sth->execute();
         $result = $sth->fetchAll();
         return $result;

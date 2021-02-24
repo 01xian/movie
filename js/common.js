@@ -5,7 +5,6 @@ function getMoreInfo(callback, query, i, appendClass)
         url: "ajax/getMoreInfo.php?query="+query+"&page="+i,
         dataType: "json",
         success: function (response) {
-            console.log(response);
             callback(response, appendClass);
         },
         error: function (thrownError) {
@@ -140,7 +139,7 @@ function loginSubmit(submit, email, password)
 
 function reviewBtn(review, memberId, name, tmdbId)
 {
-    if(review.val() != '') {
+    if (review.val() != '') {
         $.ajax({
             type: "POST",
             url: "ajax/addReview.php",
@@ -148,7 +147,7 @@ function reviewBtn(review, memberId, name, tmdbId)
                 'member_id' : memberId.val(),
                 'name' : name.val(),
                 'review' : review.val(),
-                'tmdb_id' : tmdbId.val()
+                'tmdb_id' : tmdbId
             },
             datatype: 'json',
             success:function(response){
@@ -174,7 +173,7 @@ function addFavorite(tmdbId, posterPath, overview, title)
         type:"POST",
         url:"ajax/addFavorite.php",
         data:{
-            'tmdb_id':tmdbId.val(),
+            'tmdb_id':tmdbId,
             'poster_path':posterPath.val(),
             'overview':overview.text(),
             'title': title.text()
@@ -198,7 +197,7 @@ function revomeFavorite(tmdbId)
         type:"POST",
         url:"ajax/removeFavorite.php",
         data:{
-            'tmdb_id':tmdbId.val(),
+            'tmdb_id':tmdbId,
         },
         success:function(response){
             console.log(response);
@@ -212,3 +211,140 @@ function revomeFavorite(tmdbId)
         }
     });
 }
+
+function showFavoriteMovie()
+{
+    $.ajax({
+        url:"ajax/favorite.php",
+        success:function(response){
+            $("#favouriteMovie").html(response);
+        }
+    });
+}
+
+function checkQuery(query)
+{
+    if(query) {
+        $("#banner").removeClass("index mt-5 m-auto");
+        $("#banner").addClass("banner");
+    }
+}
+
+function searchResult(valueToSearch)
+{
+    if (valueToSearch) {
+        $.ajax({
+            type:"POST",
+            url:"ajax/search.php",
+            data:{
+                'valueToSearch':valueToSearch
+            },
+            success:function(response){
+                $(".searchResult").html(response);
+
+            }
+        });
+    }
+  
+}
+function checkwriter(id)
+{
+    $.ajax({
+        type:"POST",
+        data:{
+            'id':id
+        },
+        url:"ajax/checkWriter.php",
+        datatype:"json",
+        success:function(response){
+            response = JSON.parse(response);
+            console.log(response['member_id']);
+            $(".writer").html(response['writer']);
+            $("#name").val( response['name']);
+            $("#member_id").val(response['member_id']);
+
+
+        },
+        error:function(error){
+            console.log(error);
+        }
+    });
+
+}
+
+function showReview(id)
+{
+    $.ajax({
+        type:"POST",
+        url:"ajax/showReview.php",
+        data:{
+            'id':id
+        },
+        success:function(response){
+            $(".showReview").html(response);
+
+        },
+        error:function(error){
+            console.log(error);
+        }
+    });
+   
+}
+function showContent(valueToSearch, title='', content='')
+{
+    if (valueToSearch) {
+        searchResult(valueToSearch);
+        $("#getMoreInfo").removeAttr( "style" );
+    } else if (title !='') {
+        $.ajax({
+            type:"POST",
+            data:{
+                "title":title,
+                "content":content
+            },
+            url:"ajax/movieTop.php",
+            success:function(response){
+                $('#searchOrContent').html(response);
+            },
+            error:function(error){
+                console.log(error);
+            }
+        });
+    }
+}
+
+function moviepageIntro(id, movieIntr, addFavorite, tmdbId, posterPath, overview, title, removeFavorite)
+{
+    $.ajax({
+        type:"POST",
+        url:"ajax/movieIntro.php",
+        data:{
+            'id':id
+        },
+        success: function(response){
+            movieIntr.html(response);
+            addFavorite.click(function(){
+            addFavorite(tmdbId, posterPath, overview, title);
+            });
+
+            removeFavorite.click(function(){
+                revomeFavorite(tmdbId);
+            });
+        }
+    });
+
+}
+function navCheckLogin()
+{
+    $.ajax({
+        "url":"ajax/navCheckLogin.php",
+        success:function(response){
+          $(".navbar-nav").append(response);
+        },
+        error:function(error){
+          console.log(error);
+        }
+      });
+}
+
+

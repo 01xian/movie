@@ -1,15 +1,17 @@
 <?php
-include("header.php");
+include_once("header.php");
+include_once("includeFiles.php");
 ?>
 <script type="text/javascript">
-$(document).ready(function() {
-    var i = 0;
-    $('#getMoreInfo').click(function(){
-        i++;
-        var query = <?php echo json_encode($_GET['valueToSearch']) ?>;
-        getMoreInfo(handleData, query, i, $('.showInfo'));
-    });
-});   
+    $(document).ready(function() {
+        var valueToSearch = "<?php echo empty($_GET['valueToSearch'])?'' : $_GET['valueToSearch'];?>" ;
+        showContent(valueToSearch, '最高評分電影', 'top_rated');
+        var i = 0;
+        $('#getMoreInfo').click(function(){
+            i++;
+            getMoreInfo(handleData, valueToSearch, i, $('.showInfo'));
+        });
+    });   
 </script>
     <div class = "banner">
         <img src="img/banner.jpg" alt="">   
@@ -21,17 +23,17 @@ $(document).ready(function() {
         </div>
     </div>
 
-<div class = " row  gridViewContainer justify-content-around mt-1 ">
-<?php
-if (isset($_GET['valueToSearch']) && $_GET['valueToSearch'] != '') {
-    include("search.php");
+<div class = "row gridViewContainer justify-content-around mt-1">
 
-} else {
-    $movieController = new MovieController();
-    $html = $movieController->top20Gridview('最高評分電影', 'top_rated');
-    echo ($html);
-}
-?>
+<div id="searchOrContent"></div>
+
+<div class="searchResult"></div>
+<div class="showInfo"></div>
+
+<div class="d-grid pb-3 col-6 mx-auto">
+<button class="btn btn-primary getMoreInfo btn1" style="display:none;" id="getMoreInfo" type="button">載入更多</button>
+</div>
+
 </div>
 </div>
 <?php include("footer.php")?>

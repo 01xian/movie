@@ -1,5 +1,5 @@
 <?php
-include_once dirname(__DIR__).("/Classes/Models/FavoriteMovieModel.php");
+include_once dirname(__DIR__).("/includeFiles.php");
 if (isset($_POST['tmdb_id']) && $_POST['tmdb_id']) {
     $FavoriteMovie = new FavoriteMovieModel();
     $result = $FavoriteMovie->deleteFavoriteMovie($_POST['tmdb_id']);
@@ -11,4 +11,5 @@ if (isset($_POST['tmdb_id']) && $_POST['tmdb_id']) {
 } else {
     echo('刪除失敗，請再試一次或聯絡管理人員！');
 }
+
 
