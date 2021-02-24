@@ -7,7 +7,7 @@ class SearchController
     {
         $html = '' ;
         $query = urlencode($valueToSearch);
-        $a = curl('https://api.themoviedb.org/3/search/movie?api_key='.API_KEY.'&language='.LANGUAGE.'&query='.$query.'&page=1&include_adult=false');
+        $a = curl(MOVIE_API_URL.URL_KIND['SEARCH'].'?api_key='.API_KEY.'&language='.LANGUAGE.'&query='.$query.'&page=1&include_adult=false');
         $html .= '<h3>搜尋"'.$valueToSearch.'"結果</h3>';           
         foreach ($a["results"] as $movie) {
             if ($movie["poster_path"]) {

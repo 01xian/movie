@@ -10,7 +10,7 @@ class MovieController
         global $dbh;
         $html = '<h2 class="mb-3" >'.$title.'</h2>';
         $movieTop20Id = []; 
-        $a = curl(MOVIE_API_URL.URL_KIND['MOVIE'].$item.'?api_key='.API_KEY.'&language='.LANGUAGE.'&region='.REGION);
+        $a = curl(MOVIE_API_URL.'movie/'.$item.'?api_key='.API_KEY.'&language='.LANGUAGE.'&region='.REGION);
         foreach ($a["results"] as $key => $movie) {
             $html .= '<div class="gridViewItem" >
                       <a href="moviePage.php?id='.$movie['id'].'">
@@ -36,7 +36,7 @@ class MovieController
       
         foreach($insertmovieid as $id) {
             $movie = curl(MOVIE_API_URL.URL_KIND['MOVIE'].$id."?api_key=".API_KEY."&language=".LANGUAGE);
-            $movieCast = curl("https://api.themoviedb.org/3/".MOVIE.$id."/".URL_KIND['CAST']."?api_key=".API_KEY."&language=".LANGUAGE);
+            $movieCast = curl(MOVIE_API_URL.MOVIE.$id."/".URL_KIND['CAST']."?api_key=".API_KEY."&language=".LANGUAGE);
             $cast = [];
             foreach ($movieCast["cast"] as $key => $value) {
                 if ($key > 7) continue;

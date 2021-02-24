@@ -8,7 +8,7 @@ if (isset($_GET['page']) && $_GET['page'] != '' &&
     $page = $_GET['page']+1;
     $html = '';
     $query = urlencode($_GET['query']);
-    $a = curl('https://api.themoviedb.org/3/'.URL_KIND['SEARCH'].'?api_key='.API_KEY.'&language='.LANGUAGE.'&query='.$query.'&page='.$page.'&include_adult=false');
+    $a = curl(MOVIE_API_URL.URL_KIND['SEARCH'].'?api_key='.API_KEY.'&language='.LANGUAGE.'&query='.$query.'&page='.$page.'&include_adult=false');
     foreach ($a["results"] as $movie) {
         if ($movie["poster_path"]) {
             $html .= '<div class="gridViewItem" >

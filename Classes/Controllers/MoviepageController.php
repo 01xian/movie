@@ -3,8 +3,8 @@ class MoviepageController
 {
     public function movieIntr($tmdbId)
     {
-        $movie = curl("https://api.themoviedb.org/3/".URL_KIND['MOVIE'].$tmdbId."?api_key=".API_KEY."&language=".LANGUAGE);
-        $movieCast = curl("https://api.themoviedb.org/3/".URL_KIND['MOVIE'].$tmdbId."/".URL_KIND['CAST']."?api_key=".API_KEY."&language=".LANGUAGE);
+        $movie = curl(MOVIE_API_URL.'movie/'.$tmdbId."?api_key=".API_KEY."&language=".LANGUAGE);
+        $movieCast = curl(MOVIE_API_URL.'movie/'.$tmdbId."/".URL_KIND['CAST']."?api_key=".API_KEY."&language=".LANGUAGE);
         $html = '<div class="movieContainer mt-5 row m-auto">
                 <div class="moviePoster m-2 col-12 col-md-5"> 
                     <img src="'.IMAGE_URL.'w1280/'.$movie["poster_path"].'" alt="">
