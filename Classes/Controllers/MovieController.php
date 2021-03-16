@@ -36,7 +36,7 @@ class MovieController
       
         foreach($insertmovieid as $id) {
             $movie = curl(MOVIE_API_URL.URL_KIND['MOVIE'].$id."?api_key=".API_KEY."&language=".LANGUAGE);
-            $movieCast = curl(MOVIE_API_URL.MOVIE.$id."/".URL_KIND['CAST']."?api_key=".API_KEY."&language=".LANGUAGE);
+            $movieCast = curl(MOVIE_API_URL.URL_KIND['MOVIE'].$id."/".URL_KIND['CAST']."?api_key=".API_KEY."&language=".LANGUAGE);
             $cast = [];
             foreach ($movieCast["cast"] as $key => $value) {
                 if ($key > 7) continue;

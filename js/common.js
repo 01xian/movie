@@ -258,18 +258,19 @@ function checkwriter(id)
         datatype:"json",
         success:function(response){
             response = JSON.parse(response);
-            console.log(response['member_id']);
-            $(".writer").html(response['writer']);
-            $("#name").val( response['name']);
-            $("#member_id").val(response['member_id']);
-
-
+            if (response['result']) {
+                console.log(response['member_id']);
+                $(".writer").html(response['writer']);
+                $("#name").val( response['name']);
+                $("#member_id").val(response['member_id']);
+            } else {
+                $(".writer").html(response['msg']);
+            }
         },
         error:function(error){
             console.log(error);
         }
     });
-
 }
 
 function showReview(id)
