@@ -4,7 +4,7 @@ $checkKey = ['tmdb_id', 'member_id', 'name', 'review'];
 
 foreach ($checkKey as $key) {
     if (!isset($_POST[$key]) || $_POST[$key] == '') {
-        echo (json_encode(['result' => false, 'msg' => '系統異常，請聯絡管理員！']));
+        echo (json_encode(['result' => false, 'msg' => '請先登入！']));
         exit;
     }
 }
